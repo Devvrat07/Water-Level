@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Estimator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Map finder(Beta)</h1>
+    <h3>Function still in beta , till then view location of droped pin</h3>
+    <p id="locationResult">Your Location <br><span id="result"></span></p>
+
+    <script>
+        function estimateLocation() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const latitude = urlParams.get('latitude');
+            const longitude = urlParams.get('longitude');
+
+            // You can implement your estimation logic here based on the provided latitude and longitude
+
+            // For simplicity, let's just display the coordinates for now
+            const result = `Latitude: ${latitude}, Longitude: ${longitude}`;
+            document.getElementById('result').textContent = result;
+        }
+
+        // Call the function when the page loads
+        window.onload = estimateLocation;
+    </script>
+</body>
+</html>

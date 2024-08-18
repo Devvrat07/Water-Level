@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive Map with Pin Drop</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+    <div id="map" style="width: 100%; height: 600px;"></div>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <button id="search-button" class="flex mx-auto mt-16 text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Search</button>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        const map = L.map('map').setView([20.5937, 78.9629], 5);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
+
+        let selectedLatitude;
+        let selectedLongitude;
+        let marker;
+
+        map.on('click', (e) => {
+            selectedLatitude = e.latlng.lat;
+            selectedLongitude = e.latlng.lng;
+
+            if (marker) {
+                map.removeLayer(marker);
+            }
+
+            marker = L.marker([selectedLatitude, selectedLongitude]).addTo(map);
+        });
+
+        const searchButton = document.getElementById('search-button');
+        searchButton.addEventListener('click', () => {
+            if (selectedLatitude && selectedLongitude) {
+                const redirectUrl = `map_result.html?latitude=${selectedLatitude}&longitude=${selectedLongitude}`;
+                window.location.href = redirectUrl;
+            } else {
+                alert('Please click on the map to select a location.');
+            }
+        });
+    </script>
+</body>
+</html>
